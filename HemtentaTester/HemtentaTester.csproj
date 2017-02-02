@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="BankTests.cs" />
     <Compile Include="BlogTests.cs" />
+    <Compile Include="MuicTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

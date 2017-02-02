@@ -62,7 +62,8 @@
     <Compile Include="music\IMusicPlayer.cs" />
     <Compile Include="music\ISong.cs" />
     <Compile Include="music\ISoundMaker.cs" />
-    <Compile Include="music\MusikPlayer.cs" />
+    <Compile Include="music\MusicPlayer.cs" />
+    <Compile Include="music\NoSongOrWrongFormatException.cs" />
     <Compile Include="music\Song.cs" />
     <Compile Include="music\SoundMaker.cs" />
     <Compile Include="Program.cs" />

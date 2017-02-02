@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace HemtentaTdd2017.music
 {
+    // Spelar musik. Implementera eller mocka.
     public class SoundMaker : ISoundMaker
     {
+        // Titeln på sången som spelas just nu. Ska vara
+        // tom sträng om ingen sång spelas.
         public string NowPlaying
         {
             get

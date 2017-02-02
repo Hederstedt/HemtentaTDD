@@ -6,14 +6,17 @@ using System.Threading.Tasks;
 
 namespace HemtentaTdd2017.music
 {
+    // Representerar en ljudfil inklusive metadata.
+    // Implementera eller mocka.
     public class Song : ISong
     {
+        private string title;
+
         public string Title
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { return title; }
+            set { title = value; }
         }
+
     }
 }
