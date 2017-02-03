@@ -73,6 +73,8 @@
     <Compile Include="webshop\IBilling.cs" />
     <Compile Include="webshop\IWebshop.cs" />
     <Compile Include="webshop\MyWebshop.cs" />
+    <Compile Include="webshop\NoProductException.cs" />
+    <Compile Include="webshop\NullInputException.cs" />
     <Compile Include="webshop\Product.cs" />
   </ItemGroup>
   <ItemGroup>

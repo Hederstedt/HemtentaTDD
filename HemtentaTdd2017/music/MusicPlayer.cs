@@ -9,6 +9,27 @@ namespace HemtentaTdd2017.music
     // Ska testas och implementeras.
     public class MusicPlayer : IMusicPlayer
     {
+        private Song Song;
+        private SoundMaker SoundMaker;
+        public MusicPlayer(SoundMaker soundMaker, Song song)
+        {
+            this.Song = song;
+            this.SoundMaker = soundMaker;
+        }
+        private IList<Song> fakeDbList = new List<Song>
+        {
+            new Song() { Title = "hello" },
+            new Song() { Title = "world" },
+            new Song() { Title = "search"}
+
+        };
+        public IList<Song> AddSongToPlayList(Song s)
+        {
+            IList<Song> playlist = new List<Song>();
+            playlist.Add(s);
+            return playlist;
+          
+        }
         // Antal sånger som finns i spellistan.
         // Returnerar alltid ett heltal >= 0.
         private int numSongsInQueue;
@@ -28,7 +49,13 @@ namespace HemtentaTdd2017.music
             {
                 throw new NoSongOrWrongFormatException();
             }
-
+            foreach (var s in fakeDbList)
+            {
+                if (s.Title == search)
+                {
+                    AddSongToPlayList(s);
+                }
+            }
         }
         // Om ingen låt spelas för tillfället ska
         // nästa sång i kön börja spelas. Om en låt
@@ -42,7 +69,7 @@ namespace HemtentaTdd2017.music
         // sång spelas har funktionen ingen effekt.
         public string NowPlaying()
         {
-            throw new NotImplementedException();
+            return SoundMaker.NowPlaying;
         }
         // Börjar spela nästa sång i kön. Om kön är tom
         // har funktionen samma effekt som Stop().

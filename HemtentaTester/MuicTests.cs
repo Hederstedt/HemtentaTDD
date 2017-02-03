@@ -11,13 +11,17 @@ namespace HemtentaTester
     [TestFixture]
    public class MuicTests
     {
+        private Song s;
+        private SoundMaker sm;
         private FakeMediaDatabase db;
         private MusicPlayer mp;
         [SetUp]
         public void SetUp()
         {
+            s = new Song();
+            sm = new SoundMaker();
             db = new FakeMediaDatabase();
-            mp = new MusicPlayer();
+            mp = new MusicPlayer(sm,s);
         }
         #region DbTests
         [Test]
@@ -75,8 +79,7 @@ namespace HemtentaTester
         [Test]
         public void MusicPlayer_LoadSongs_Returns_songs_if_match()
         {
-            db.OpenConnection();
-            db.FetchSongs("wee");
+            
 
 
         }

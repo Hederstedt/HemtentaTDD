@@ -1,0 +1,14 @@
+I TDD (Testdriven utveckling) så bryter man ner projekt eller kod i mindre portioner för att testa allt i kortare intervaller eller mindre bitar kod helt enkelt. Detta i sig ger oss mycket bättre kod eftersom varje liten metod som används i koden kan testas var för sig. Så att man ser att man får ut det förväntade värdet av just den metoden.
+Detta ger oss också möjligheten att skicka in felaktiga värden för att se vad som händer och hur vi kan åtgärda potentiella problem i förväg. När man jobbar med TDD så finns det en så kallad ”minnesregel” eller ett arbetsflöde som man följer Red, Green, Refactor där:
+
+*Red
+
+Står för ett misslyckat test som man utgår från, jag börjar med att skriver koden i min testmetod med vad jag förväntar mig få ut av metoden jag testar. Detta i sin tur resulterar i att testet blir rött eftersom produktionskoden är tom i detta fallet. Men nu har jag ju ett hum om vad jag förväntar mig att få tillbaka och då kan jag gå vidare till green.
+
+*Green
+
+Står för ett lyckat test och eftersom jag gjort steg ett (red) så vet jag ju vad jag förväntar mig att få tillbaka och i det här skedet försöker jag skriva så lite kod som möjligt för att få produktionskoden att skicka tillbaka det förväntade värdet. Här är det inte viktigt att ”bra” kod med hjälp metoder utan bara fokusera på att få produktionskoden att skicka tillbaka förväntat värde så att testet blir grönt.
+
+*Refactor
+
+Står för att strukturera om eller förbättring/förfining av kod, här jobbar vi med att förbättra koden med hjälp metoder och klasser för att få koden att bli mer lätt läst och effektivare. Jag har gjort så att jag inte går in i detta skedde förens efter ett par testfall. Kanske inte helt rätt väg att gå men för min egen del så kan det vara svårt att se vilka hjälp metoder eller klasser som behövs. Innan man gått igenom koden eller metoden ett par gånger. Så störst fokus på Red, Green, sen blir Refactor en biprodukt. Som jag återvänder till efter behov ser jag tillexempel att jag skriver samma bit kod i flera metoder så kanske det kan vara på sin plats att använda en hjälpmetod. Och eftersom vi har våra tester redan klara och gröna så kan vi på ett enkelt sätt se om dom blir röda efter en refaktorering. Sen gå tillbaka och lösa nya problem som dykt upp. Detta ger oss ett extremt effektivt och lättarbetat sätt att få vår kod att ha mindre bugar och bli effektivare.

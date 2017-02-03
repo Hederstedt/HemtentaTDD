@@ -10,8 +10,6 @@ namespace HemtentaTdd2017.webshop
     // det är som inte står i specen. När du stöter
     // på något som är osäkert, skriv ner som en
     // kommentar hur du tänkt.
-
-
     // Testa och implementera
     public interface IWebshop
     {
