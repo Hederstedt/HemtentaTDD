@@ -9,24 +9,38 @@ namespace HemtentaTdd2017.music
     // Spelar musik. Implementera eller mocka.
     public class SoundMaker : ISoundMaker
     {
+        public string nowpplaying { get; set; }
         // Titeln på sången som spelas just nu. Ska vara
         // tom sträng om ingen sång spelas.
+
         public string NowPlaying
         {
             get
             {
-                throw new NotImplementedException();
+                return nowpplaying;
             }
         }
 
         public void Play(ISong song)
         {
-            throw new NotImplementedException();
+            if (song == null)
+            {
+                nowpplaying = "";
+                
+            }
+            else
+            {
+                nowpplaying = song.Title;
+            }
+           
         }
 
         public void Stop()
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(nowpplaying))
+            {
+                throw new NoSongOrWrongFormatException();
+            }
         }
     }
 }

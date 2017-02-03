@@ -11,6 +11,9 @@ namespace HemtentaTester
     [TestFixture]
     public class BankTests
     {
+        #region SetUp
+
+        
         private Account a;
 
         [SetUp]
@@ -18,6 +21,7 @@ namespace HemtentaTester
         {
             a = new Account();
         }
+        #endregion
 
         #region DepositTests
         [TestCase(null)]
@@ -109,11 +113,6 @@ namespace HemtentaTester
 
             Assert.AreEqual(a2.Amount, 200);
         }
-
-
-
         #endregion
-
-
     }
 }

@@ -12,6 +12,9 @@ namespace HemtentaTester
     [TestFixture]
    public class BlogTests
     {
+        #region SetUp
+
+        
         private Blog b;
         private User u;
         private Page p;
@@ -23,6 +26,7 @@ namespace HemtentaTester
             u = new User("username");
             p = new Page { Title = "hej", Content = "Svej" };
         }
+        #endregion
 
         #region UserLogin/outTests
 
@@ -30,18 +34,15 @@ namespace HemtentaTester
         [Test]
         public void LogInUser_NullValues_ThrowsException()
         {
+            User w = new User("");
+            Assert.That(() => b.LoginUser(w), Throws.TypeOf<NoUserException>());
             Assert.That(() => b.LoginUser(null), Throws.TypeOf<NoUserException>());
         }
         [Test]
         public void LogInUser_pass()
         {
-            //var mock = new Mock<IAuthenticator>();
-            //mock.Setup(x => x.GetUserFromDatabase("username")).Returns(new User("username"));
-            //IAuthenticator au = mock.Object;
             b.LoginUser(u);
-            Assert.That(b.UserIsLoggedIn, Is.True);
-            //au.GetUserFromDatabase("username");                   
-            //Assert.That(au.GetUserFromDatabase("username"), Is.EqualTo(u.Name));                      
+            Assert.That(b.UserIsLoggedIn, Is.True);                 
         }
         [Test]
         public void LogInUser_Fail()
@@ -60,16 +61,14 @@ namespace HemtentaTester
             Assert.That(b.UserIsLoggedIn, Is.False);
         }
         #endregion
+
         #region PageTests
-
-
         [Test]
         public void Page_Throws_Exception_If_PageIsNull()
         {                     
             Assert.That(() => b.PublishPage(null), Throws.TypeOf<BadPageException>());
         }
-
-        
+       
         [TestCase("","")]
         [TestCase(null, "Hej")]
         [TestCase("hej", null)]
@@ -100,6 +99,7 @@ namespace HemtentaTester
 
         }
         #endregion
+
         #region SendEmailTests
 
        

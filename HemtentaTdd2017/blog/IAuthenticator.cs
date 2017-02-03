@@ -14,5 +14,6 @@ namespace HemtentaTdd2017.blog
         //    // User-objekt om den hittade en användare,
         //    // null annars.
         User GetUserFromDatabase(string username);
+        
     }
 }

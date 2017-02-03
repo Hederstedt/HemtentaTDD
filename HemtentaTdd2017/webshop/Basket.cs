@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HemtentaTdd2017.webshop
 {
-    // Testa och implementera
+    
     public class Basket : IBasket
     {
 
@@ -19,10 +19,12 @@ namespace HemtentaTdd2017.webshop
                 return totalCost;
             }
         }
-
+        // blev lite osäker här så jag slänger in lite extra kontroller på p 
         public void AddProduct(Product p, int amount)
         {
-            if (p == null || amount <= 0)
+            bool badProductFormat = p == null || string.IsNullOrEmpty(p.Name) || decimal.MinusOne == p.Price
+                                            || decimal.MinValue == p.Price || decimal.Zero == p.Price;
+            if (badProductFormat || amount <= 0)
             {
                 throw new NoProductException();
             }
@@ -34,7 +36,9 @@ namespace HemtentaTdd2017.webshop
 
         public void RemoveProduct(Product p, int amount)
         {
-            if (p == null || amount <= 0)
+            bool badProductFormat = p == null || string.IsNullOrEmpty(p.Name) || decimal.MinusOne == p.Price
+                                           || decimal.MinValue == p.Price || decimal.Zero == p.Price;
+            if (badProductFormat || amount <= 0)
             {
                 throw new NoProductException();
             }

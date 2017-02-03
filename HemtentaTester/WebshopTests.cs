@@ -5,16 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using HemtentaTdd2017.webshop;
 using NUnit.Framework;
-using Moq;
+
 namespace HemtentaTester
 {
     #region Frågor och svar
 
     #region Fråga 1 Vilka metoder och properties behöver testas?
-    /*i basket behöver vi testa både add och removeproduct för att se så att
+    /* basket 
+     * behöver vi testa både add och removeproduct för att se så att
      * inte deras properties är null eller 0 då kastar vi exception
      * sen måste vi även testa så att båda metoderna ändrar totalcost
+     * och även göra en kontroll så att produkt objektens medlemsvariabler inte har fel format
      * 
+     * MyWebshop
+     * behöver vi testa så att checkout kastar exception om billing är null 
+     * vi behöver även testa så att vår fake Ibilling.balance får ett nytt värde efter vi kört checkout    
      */
     #endregion
 
@@ -22,6 +27,7 @@ namespace HemtentaTester
     /* 
      * Basket
      * bör kasta noproductException om man skickar in fel värden dvs null eller 0
+     * eller om objektet produk p medlemsvariabler p.name och p.prise har fel värden
     *  
     *  MyWebshop
     *  kastar en NullInputException om vi försöker skicka in null i Checkout eller om vår 
@@ -63,16 +69,16 @@ namespace HemtentaTester
         #endregion
 
         #region BasketTests
-        [Test]
-        public void AddProductTest_throws_NoProductException()
+
+        [TestCase("hej",20,0)]
+        [TestCase("", 20, 2)]
+        [TestCase("hej", null, 3)]
+        public void AddProductTest_throws_NoProductException(string name, decimal price, int amount )
         {
-            Assert.That(() => bs.AddProduct(null, 2), Throws.TypeOf<NoProductException>());
+            Product pb = new Product { Name = name, Price = price };
+            Assert.That(() => bs.AddProduct(pb, amount), Throws.TypeOf<NoProductException>());
         }
-        [Test]
-        public void AddProductTest_throws_NoProductException_if_amountIslesOreEqualtoZero()
-        {
-            Assert.That(() => bs.AddProduct(p, 0), Throws.TypeOf<NoProductException>());
-        }
+     
         [Test]
         public void AddProductTest_Product_times_Amount_changes_TotalCost()
         {
@@ -82,16 +88,15 @@ namespace HemtentaTester
             var result = bs.TotalCost;
             Assert.AreEqual(result, 50);
         }
-       [Test]
-        public void RemoveProductTest_throws_NoProductException()
+        [TestCase("hej", 20, 0)]
+        [TestCase("", 20, 2)]
+        [TestCase("hej", null, 3)]
+        [TestCase(null, null, null)]
+        public void RemoveProductTest_throws_NoProductException(string name, decimal price, int amount)
         {
-            Assert.That(() => bs.AddProduct(null, 2), Throws.TypeOf<NoProductException>());
-        }
-        [Test]
-        public void RemoveProductTest_throws_NoProductException_if_amountIslesOreEqualtoZero()
-        {
-            Assert.That(() => bs.AddProduct(p, 0), Throws.TypeOf<NoProductException>());
-        }
+            Product pb = new Product { Name = name, Price = price };
+            Assert.That(() => bs.RemoveProduct(pb, amount), Throws.TypeOf<NoProductException>());
+        }       
         [Test]
         public void RemoveProductTest_Product_minus_Amount_changes_TotalCost()
         {
@@ -112,31 +117,44 @@ namespace HemtentaTester
         [Test]
         public void Checkout_bills_the_totalcost()
         {
-            var mockBi = new Mock<IBilling>();
-            IBilling bi = mockBi.Object;
-            
-
+            p.Name = "såg";
+            p.Price = 150;
+            IBasket basket = new Basket();
+            basket.AddProduct(p, 1);
+            IWebshop webshop = new MyWebshop(basket);
+            IBilling billing = new FakeIBilling();
+            billing.Balance = 200;
+            webshop.Checkout(billing);
+            Assert.AreEqual(billing.Balance, 50);
         }
-
-
-        //Börja med Checkout för att fixa så att den inte tar imot null 
-        //vad behöver vi testa i MyWebshop?
-        //se till så att checkout skickar ett exception ifall null skickas in 
-        // skapa en DI på Ibasket för att skicka in värden till totalcost och ge det vidare till
-        //billing
-
-
-
-
         #endregion
 
-        //Arrange
-
-        //Act
-
-        // Assert 
-
-
-
+        #region FakeIBIlling
     }
+    public class FakeIBilling : IBilling
+    {
+        private decimal balance;
+        public decimal Balance
+        {
+            get
+            {
+                return balance;
+            }
+
+            set
+            {
+                balance = value;
+            }
+        }
+
+        public void Pay(decimal amount)
+        {
+            if (amount <= 0)
+            {
+                throw new NullInputException();
+            }
+            Balance -= amount;
+        }
+    }
+    #endregion
 }

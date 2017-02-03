@@ -83,6 +83,19 @@ namespace HemtentaTester
 
 
         }
+        [Test]
+        public void MusicPlayer_Stop_changes_NowPlaying()
+        {
+            mp.Stop();
+            Assert.AreEqual(sm.NowPlaying, "Tystnad råder");
+        }
+        [Test]
+        public void MusicPlayer_Play()
+        {
+            mp.Play();
+            Assert.AreEqual(sm.nowpplaying, "search");
+        }
+
         #endregion
     }
     #region FakeDb   

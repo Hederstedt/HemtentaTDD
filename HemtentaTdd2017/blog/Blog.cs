@@ -12,7 +12,9 @@ namespace HemtentaTdd2017.blog
 
         public void LoginUser(User u)
         {
-            if (u == null)
+            bool BadUserFormat = u == null || string.IsNullOrEmpty(u.Name)
+                || string.IsNullOrEmpty(u.Password);
+            if (BadUserFormat)
             {
                 throw new NoUserException();
             }

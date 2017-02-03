@@ -75,14 +75,31 @@ namespace HemtentaTdd2017.music
         // har funktionen samma effekt som Stop().
         public void Play()
         {
-            throw new NotImplementedException();
+            if (fakeDbList.Count <=0)
+            {
+                Stop();
+            }
+            else
+            {
+                foreach (var s in fakeDbList)
+                {
+                    SoundMaker.Play(s);
+                }
+            }
         }
         // Returnerar strängen "Tystnad råder" om ingen
         // sång spelas, annars "Spelar <namnet på sången>".
         // Exempel: "Spelar Born to run".
         public void Stop()
         {
-            throw new NotImplementedException();
+            if (SoundMaker.NowPlaying == null)
+            {
+                SoundMaker.nowpplaying = "Tystnad råder";
+            }
+            else
+            {
+                SoundMaker.nowpplaying = "Spelar Born to run";
+            }            
         }
     }
 }
